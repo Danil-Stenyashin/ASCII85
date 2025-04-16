@@ -1,6 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -pedantic -std=c++17 -O3
 GTEST_FLAGS = -pthread -lgtest -lgtest_main
+PYTEST = python3 tests.py
 
 SRC = main.cpp encoder.cpp decoder.cpp
 OBJ = $(SRC:.cpp=.o)
@@ -27,8 +28,11 @@ run: $(EXEC)
 
 test: $(TEST_EXEC)
 	@echo "Running tests"
+	@echo "C++ TESTS"
 	./$(TEST_EXEC)
-
+	@echo "PYTHON TESTS"
+	$(PYTEST)
+	
 $(TEST_EXEC): $(TEST_OBJ)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(GTEST_FLAGS)
 

@@ -11,6 +11,7 @@ void decoder(std::istream& in, std::ostream& out) {
 
     while (in.get(ch)) {
         if (std::isspace(static_cast<unsigned char>(ch))) continue;
+      
 
         if (ch == 'z') {
             if (!block.empty())
