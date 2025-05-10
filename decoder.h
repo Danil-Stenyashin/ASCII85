@@ -1,9 +1,11 @@
 #ifndef DECODER_H
 #define DECODER_H
 
+#include <iosfwd>
+
 #pragma once
 #include <iostream>
 
-void decoder(std::istream& in, std::ostream& out);
+bool decoder(std::istream& in, std::ostream& out);
 
 #endif

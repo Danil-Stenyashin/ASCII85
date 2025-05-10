@@ -5,18 +5,20 @@
 #include <stdexcept>
 #include <cctype>
 
-void decoder(std::istream& in, std::ostream& out) {
+bool decoder(std::istream& in, std::ostream& out) {
     std::vector<char> block;
     char ch;
 
     while (in.get(ch)) {
         if (std::isspace(static_cast<unsigned char>(ch))) continue;
-      
 
         if (ch == 'z') {
-            if (!block.empty())
-                throw std::runtime_error("'z' found in the middle of a block");
-            out.write("\0\0\0\0", 4);
+            if (!block.empty()) {
+                throw std::runtime_error("'z' must be at the start of a block");
+            }
+            if (!out.write("\0\0\0\0", 4)) {
+                return false;
+            }
             continue;
         }
 
@@ -57,6 +59,10 @@ void decoder(std::istream& in, std::ostream& out) {
         }
 
         out.write(decoded.data(), size - 1);
+        
+        
     }
+    
+    return true;
 }
 

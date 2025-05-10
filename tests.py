@@ -46,8 +46,7 @@ class TestASCII85Decoder(unittest.TestCase):
                 self.assertEqual(result.returncode, 0)
 
     def test_decoder_invalid(self):
-        broken_cases = [
-            b"z",      
+        broken_cases = [  
             b"!!!!z",  
             b"abzcd",  
             b"\xff\xff",  

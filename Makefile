@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -pedantic -std=c++17 -O3
+CXXFLAGS = -Wall -Wextra -pedantic -std=c++23 -O3
 GTEST_FLAGS = -pthread -lgtest -lgtest_main
 PYTEST = python3 tests.py
 
