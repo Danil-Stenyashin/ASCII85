@@ -21,9 +21,9 @@ jobs:
    
         pip3 install pytest
     
-    - name: Verify C++ standard
+    - name: Check C++ standard
       run: |
-        if ! grep -q "-std=c++23" Makefile; then
+        if ! grep -q "\-std=c++23" Makefile; then
           echo "ERROR: Makefile must use C++23 standard"
           exit 1
         fi
