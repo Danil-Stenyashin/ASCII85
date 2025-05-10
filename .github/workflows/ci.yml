@@ -1,4 +1,4 @@
-name: C++ CI
+name: ASCII85 CI
 
 on: [push, pull_request]
 
@@ -12,20 +12,27 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y g++ make python3 python3-pip libgtest-dev
-        # Сборка GTest
-        cd /usr/src/gtest
-        sudo cmake .
-        sudo make
-        sudo cp *.a /usr/lib
-        # Установка Python зависимостей (если есть requirements.txt)
-        pip3 install pytest
-        
-    - name: Build main project
-      run: make
+        sudo apt-get install -y g++ make python3 python3-pip libgtest-dev googletest
     
+        cd /usr/src/googletest
+        sudo cmake -B build -DCMAKE_BUILD_TYPE=Release
+        sudo cmake --build build
+        sudo cmake --install build
+   
+        pip3 install pytest
+    
+    - name: Verify C++ standard
+      run: |
+        if ! grep -q "-std=c++23" Makefile; then
+          echo "ERROR: Makefile must use C++23 standard"
+          exit 1
+        fi
+        
+    - name: Build project
+      run: make all
+      
     - name: Run C++ tests
       run: make test
-    
+      
     - name: Clean
       run: make clean
